@@ -12,5 +12,8 @@ const appClient = axios.create({
 export default {
   getEvents() {
     return appClient.get('db/events.json')
-  }
+  },
+  getEvent(eventId) {
+    return appClient.get(`db/events/${eventId}.json`)
+  },
 }
