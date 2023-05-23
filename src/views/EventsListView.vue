@@ -7,10 +7,10 @@ const events = ref(null)
 
 onMounted(() => {
   EventsService.getEvents()
-    .then((response) => {
-      events.data = response.data.events
+    .then(response => {
+      events.value = response.data
     })
-    .catch((error) => {
+    .catch(error => {
       console.error(error)
     })
 })
