@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const appClient = axios.create({
-  baseURL: '/',
+  baseURL: 'https://my-json-server.typicode.com/Code-Pop/Touring-Vue-Router',
   withCredentials: false,
   headers: {
     Accept: 'application/json',
@@ -10,10 +10,10 @@ const appClient = axios.create({
 })
 
 export default {
-  getEvents() {
-    return appClient.get('db/events.json')
+  getEvents(perPage, page) {
+    return appClient.get(`/events?_limit=${perPage}&_page=${page}`)
   },
   getEvent(eventId) {
-    return appClient.get(`db/events/${eventId}.json`)
+    return appClient.get(`/events/${eventId}`)
   },
 }
