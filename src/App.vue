@@ -1,21 +1,23 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <div id="layout">
-    <header>
-      <div class="wrapper">
-        <nav>
-          <RouterLink :to="{ name: 'EventList' }">Events</RouterLink>
-          |
-          <RouterLink :to="{ name: 'About' }">About</RouterLink>
-        </nav>
-      </div>
-    </header>
+  <div id="app">
+    <div id="nav">
+      <nav>
+        <RouterLink :to="{ name: 'EventList' }">Events</RouterLink>
+        |
+        <RouterLink :to="{ name: 'About' }">About</RouterLink>
+      </nav>
+    </div>
     <RouterView />
   </div>
 </template>
+
+<script>
+import { RouterLink, RouterView } from 'vue-router'
+
+export default {
+  components: [RouterLink, RouterView],
+}
+</script>
 
 <style>
 #app {

@@ -12,25 +12,35 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import EventsService from '@/services/events'
-import { ref, onMounted } from 'vue'
 
-const props = defineProps({
-  id: {
-    required: true,
+export default {
+  props: {
+    id: {
+      required: true,
+    },
   },
-})
-
-const event = ref(null)
-
-onMounted(() => {
-  EventsService.getEvent(props.id)
-    .then((response) => {
-      event.value = response.data
-    })
-    .catch((error) => {
-      console.error(error)
-    })
-})
+  data() {
+    return {
+      event: null,
+    }
+  },
+  created() {
+    EventsService.getEvent(this.id)
+      .then((response) => {
+        this.event = response.data
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          this.$router.push({
+            name: '404Resource',
+            params: { resource: 'event' },
+          })
+        } else {
+          this.$router.push({ name: 'NetworkError' })
+        }
+      })
+  },
+}
 </script>

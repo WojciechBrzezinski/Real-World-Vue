@@ -1,43 +1,3 @@
-<script>
-import EventsService from '@/services/events'
-import EventCard from '@/components/EventCard.vue'
-import { watchEffect } from 'vue'
-
-export default {
-  name: 'EventListView',
-  props: ['page'],
-  components: { EventCard },
-  data() {
-    return {
-      events: null,
-      totalEvents: 0,
-    }
-  },
-  created() {
-    watchEffect(() => {
-      this.events = null
-
-      EventsService.getEvents(2, this.page)
-        .then((response) => {
-          this.events = response.data
-          this.totalEvents = response.headers['x-total-count']
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-    })
-  },
-  computed: {
-    totalPages() {
-      return Math.ceil(this.totalEvents / 2)
-    },
-    hasNextPage() {
-      return this.page < this.totalPages
-    },
-  },
-}
-</script>
-
 <template>
   <h1>Events for Good</h1>
   <div class="events">
@@ -65,16 +25,57 @@ export default {
   </div>
 </template>
 
+<script>
+import EventsService from '@/services/events'
+import EventCard from '@/components/EventCard.vue'
+import { watchEffect } from 'vue'
+
+export default {
+  props: ['page'],
+  components: { EventCard },
+  data() {
+    return {
+      events: null,
+      totalEvents: 0,
+    }
+  },
+  created() {
+    watchEffect(() => {
+      this.events = null
+
+      EventsService.getEvents(2, this.page)
+        .then((response) => {
+          this.events = response.data
+          this.totalEvents = response.headers['x-total-count']
+        })
+        .catch(() => {
+          this.$router.push({ name: 'NetworkError' })
+        })
+    })
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.totalEvents / 2)
+    },
+    hasNextPage() {
+      return this.page < this.totalPages
+    },
+  },
+}
+</script>
+
 <style scoped>
 .events {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .pagination {
   display: flex;
   width: 290px;
 }
+
 .pagination a {
   flex: 1;
   text-decoration: none;
