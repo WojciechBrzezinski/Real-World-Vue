@@ -46,7 +46,7 @@ export default {
     <div class="pagination">
       <router-link
         id="page-prev"
-        :to="{ name: 'event-list', query: { page: this.page - 1 } }"
+        :to="{ name: 'EventList', query: { page: this.page - 1 } }"
         rel="previous"
         v-if="this.page > 1"
       >
@@ -55,7 +55,7 @@ export default {
 
       <router-link
         id="page-next"
-        :to="{ name: 'event-list', query: { page: this.page + 1 } }"
+        :to="{ name: 'EventList', query: { page: this.page + 1 } }"
         rel="next"
         v-if="this.hasNextPage"
       >
@@ -71,12 +71,10 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-
 .pagination {
   display: flex;
   width: 290px;
 }
-
 .pagination a {
   flex: 1;
   text-decoration: none;
