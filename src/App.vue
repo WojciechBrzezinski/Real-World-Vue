@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div id="flashMessage" v-if="GStore.flashMessage">
+      {{ GStore.flashMessage }}
+    </div>
     <div id="nav">
       <nav>
         <RouterLink :to="{ name: 'EventList' }">Events</RouterLink>
@@ -15,11 +18,26 @@
 import { RouterLink, RouterView } from 'vue-router'
 
 export default {
+  inject: ['GStore'],
   components: [RouterLink, RouterView],
 }
 </script>
 
 <style>
+@keyframes yellowfade {
+  from {
+    background: yellow;
+  }
+  to {
+    background: transparent;
+  }
+}
+
+#flashMessage {
+  animation-name: yellowfade;
+  animation-duration: 3s;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
