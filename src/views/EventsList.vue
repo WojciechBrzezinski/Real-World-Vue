@@ -25,11 +25,12 @@
   </div>
 </template>
 
-<script>
-import EventsService from '@/services/events'
-import EventCard from '@/components/EventCard.vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import EventCard from '../components/EventCard.vue'
+import EventsService from '../services/events.js'
 
-export default {
+export default defineComponent({
   props: ['page'],
   components: { EventCard },
   data() {
@@ -68,7 +69,7 @@ export default {
       return this.page < this.totalPages
     },
   },
-}
+})
 </script>
 
 <style scoped>
